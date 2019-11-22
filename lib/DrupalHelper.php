@@ -20,9 +20,12 @@ class DrupalHelper
     {
         $autoloader = require_once $drupalRoot . '/autoload.php';
         $request = new Request();
+        $originalDir = getcwd();
+        chdir($drupalRoot);
         $kernel = DrupalKernel::createFromRequest($request, $autoloader, 'prod', true, $drupalRoot);
         $kernel->boot();
         $kernel->loadLegacyIncludes();
+        chdir($originalDir);
     }
 
     /**
